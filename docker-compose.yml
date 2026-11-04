@@ -1,6 +1,9 @@
 version: '3.8'
 services:
   app:
+    image: lab-app:v2.3.0
     build: .
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=production

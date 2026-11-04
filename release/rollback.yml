@@ -1,2 +1,18 @@
-rollback_strategy: 
-target_version: 
+rollback_plan:
+  application: OrderFlow
+  current_release: v2.3.0
+  target_version: v2.2.0
+  rollback_strategy: "Automated Kubernetes Rollback & Traffic Reroute"
+  trigger_conditions:
+    - "Liveness or readiness probe failures on /health (> 3 consecutive failures)"
+    - "HTTP 5xx server error rate exceeding 1% within 5 minutes"
+    - "Application pod crash loop back-off"
+    - "Latency spike > 500ms at 95th percentile"
+  execution_steps:
+    1: "Execute kubectl rollout undo deployment/lab-app"
+    2: "Verify previous stable replica set (v2.2.0) pods reach Ready state"
+    3: "Ensure LoadBalancer service routes incoming requests to healthy v2.2.0 pods"
+    4: "Confirm /health endpoint returns HTTP 200 OK with stable response"
+    5: "Notify Release Engineering and trigger post-incident review"
+  script: "./scripts/rollback.sh v2.2.0"
+  estimated_recovery_time: "< 60 seconds (zero downtime)"
