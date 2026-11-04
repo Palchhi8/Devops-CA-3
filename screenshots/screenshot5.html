@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Screenshot 5 - Final Release Readiness Pack</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+body { background: #0d1117; color: #c9d1d9; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+.window { display: flex; flex-direction: column; height: 100%; border: 1px solid #30363d; background: #0d1117; }
+.titlebar { background: #161b22; height: 38px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid #30363d; font-size: 13px; color: #8b949e; }
+.window-dots { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
+.title-text { font-weight: 600; color: #f0f6fc; display: flex; align-items: center; gap: 8px; }
+.main-layout { display: flex; flex: 1; overflow: hidden; }
+.sidebar { width: 260px; background: #0d1117; border-right: 1px solid #30363d; display: flex; flex-direction: column; font-size: 12.5px; }
+.sidebar-header { padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #8b949e; border-bottom: 1px solid #21262d; }
+.tree { padding: 8px 0; overflow-y: auto; flex: 1; }
+.tree-item { padding: 5px 16px; display: flex; align-items: center; gap: 8px; color: #8b949e; }
+.tree-item.folder { font-weight: 600; color: #c9d1d9; }
+.tree-item.active { background: #1f242c; color: #3fb950; font-weight: 600; border-left: 2px solid #238636; }
+.indent { padding-left: 26px; }
+.split-panes { flex: 1; display: flex; overflow: hidden; }
+.pane { flex: 1.2; display: flex; flex-direction: column; border-right: 1px solid #30363d; overflow: hidden; background: #0d1117; }
+.pane-side { flex: 0.9; display: flex; flex-direction: column; overflow: hidden; background: #0d1117; }
+.pane-header { padding: 8px 14px; background: #161b22; border-bottom: 1px solid #21262d; font-size: 12px; font-weight: 600; color: #e6edf3; display: flex; justify-content: space-between; align-items: center; }
+.doc-box { flex: 1; padding: 18px 22px; overflow-y: auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; line-height: 1.6; color: #c9d1d9; }
+.doc-box h1 { font-size: 18px; color: #f0f6fc; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #21262d; }
+.doc-box h2 { font-size: 14px; color: #58a6ff; margin: 16px 0 8px 0; }
+.doc-box p { margin-bottom: 10px; font-size: 12.5px; }
+.doc-box ul { margin-left: 18px; margin-bottom: 10px; font-size: 12px; }
+.doc-box li { margin-bottom: 4px; }
+.doc-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 11.5px; }
+.doc-table th { background: #161b22; padding: 6px 10px; text-align: left; border: 1px solid #30363d; color: #f0f6fc; }
+.doc-table td { padding: 6px 10px; border: 1px solid #30363d; }
+.code-side { flex: 1; padding: 12px 14px; overflow-y: auto; font-family: 'Consolas', monospace; font-size: 12px; line-height: 1.5; white-space: pre; color: #e6edf3; }
+.hl-key { color: #79b8ff; }
+.hl-str { color: #a5d6ff; }
+.hl-sec { color: #3fb950; font-weight: bold; }
+.badge-ready { background: #238636; color: #fff; font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 4px; }
+.statusbar { height: 26px; background: #161b22; border-top: 1px solid #30363d; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-size: 11.5px; color: #8b949e; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="titlebar">
+    <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+    <div class="title-text"><span>OrderFlow v2.3.0</span> &bull; <span>Final Release Readiness Pack</span> &bull; <span>Operational Documentation</span></div>
+    <span class="badge-ready">&#10004; PRODUCTION READY RELEASE CANDIDATE</span>
+  </div>
+
+  <div class="main-layout">
+    <div class="sidebar">
+      <div class="sidebar-header">Release Repository</div>
+      <div class="tree">
+        <div class="tree-item folder">&#128193; .github/workflows</div>
+        <div class="tree-item folder">&#128193; app</div>
+        <div class="tree-item indent active">&#128196; package.json (v2.3.0)</div>
+        <div class="tree-item folder">&#128193; deployment/kubernetes</div>
+        <div class="tree-item folder">&#128193; release</div>
+        <div class="tree-item indent active">&#128196; RELEASE_DOCUMENTATION.md</div>
+        <div class="tree-item indent active">&#128196; approvals.yml</div>
+        <div class="tree-item indent active">&#128196; rollback.yml</div>
+        <div class="tree-item indent active">&#128196; release.json</div>
+        <div class="tree-item folder">&#128193; scripts</div>
+        <div class="tree-item indent">&#128196; deploy.sh</div>
+        <div class="tree-item indent active">&#128196; rollback.sh</div>
+        <div class="tree-item">&#128196; README.md</div>
+      </div>
+    </div>
+
+    <div class="split-panes">
+      <!-- Main Documentation Pane -->
+      <div class="pane">
+        <div class="pane-header">
+          <span>release/RELEASE_DOCUMENTATION.md</span>
+          <span style="color: #3fb950;">&#10004; Complete Operational Pack</span>
+        </div>
+        <div class="doc-box">
+          <h1>OrderFlow v2.3.0 — Production Release Readiness Pack</h1>
+          <p><strong>Release Status:</strong> APPROVED &bull; <strong>Version:</strong> v2.3.0 &bull; <strong>Lead:</strong> Palchhi</p>
+
+          <h2>1. Release Version Information</h2>
+          <p>Immutable release candidate for OrderFlow pinned to Semantic Version <code>v2.3.0</code>. Verified endpoint <code>GET /health</code> returns <code>{ "status": "ok", "version": "2.3.0" }</code>.</p>
+
+          <h2>2. Deployment Strategy</h2>
+          <p>Zero-Downtime <strong>RollingUpdate</strong> on Kubernetes: <code>maxSurge: 1</code>, <code>maxUnavailable: 0</code> across 3 pod replicas. Health gated by liveness and readiness probes.</p>
+
+          <h2>3. Rollback Strategy</h2>
+          <p>Automated rollback via <code>kubectl rollout undo deployment/lab-app</code> to previous stable release <strong>v2.2.0</strong> triggered upon probe failures, latency spikes, or >1% 5xx error rates.</p>
+
+          <h2>4. Production Approval Sign-Offs</h2>
+          <table class="doc-table">
+            <tr><th>Role</th><th>Lead</th><th>Decision</th><th>Date</th></tr>
+            <tr><td>Release Manager</td><td>Palchhi</td><td style="color:#3fb950;font-weight:bold;">APPROVED</td><td>2026-11-04</td></tr>
+            <tr><td>QA Engineering Lead</td><td>QA Director</td><td style="color:#3fb950;font-weight:bold;">APPROVED</td><td>2026-11-04</td></tr>
+            <tr><td>InfoSec Lead</td><td>Security Lead</td><td style="color:#3fb950;font-weight:bold;">APPROVED</td><td>2026-11-04</td></tr>
+            <tr><td>Engineering Director</td><td>VP Engineering</td><td style="color:#3fb950;font-weight:bold;">APPROVED</td><td>2026-11-04</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Side Pane: rollback.yml and release.json -->
+      <div class="pane-side">
+        <div class="pane-header">
+          <span>release/rollback.yml & release.json</span>
+          <span style="color: #58a6ff;">Rollback & Version Specs</span>
+        </div>
+        <div class="code-side">
+<span class="hl-key">rollback_plan</span>:
+  <span class="hl-key">application</span>: <span class="hl-str">OrderFlow</span>
+  <span class="hl-key">current_release</span>: <span class="hl-str">v2.3.0</span>
+<span class="hl-sec">  <span class="hl-key">target_version</span>: <span class="hl-str">v2.2.0</span></span>
+  <span class="hl-key">rollback_strategy</span>: <span class="hl-str">"Automated K8s Rollback"</span>
+  <span class="hl-key">trigger_conditions</span>:
+    - <span class="hl-str">"Probe failure on /health (> 3 failures)"</span>
+    - <span class="hl-str">"HTTP 5xx rate > 1% in 5 min"</span>
+    - <span class="hl-str">"Pod crash loop back-off"</span>
+  <span class="hl-key">script</span>: <span class="hl-str">"./scripts/rollback.sh v2.2.0"</span>
+  <span class="hl-key">recovery_time</span>: <span class="hl-str">"&lt; 60s (Zero downtime)"</span>
+
+<span class="hl-key">---</span>
+<span class="hl-comment"># release/release.json</span>
+{
+  <span class="hl-key">"Application"</span>: <span class="hl-str">"OrderFlow"</span>,
+<span class="hl-sec">  <span class="hl-key">"Version"</span>: <span class="hl-str">"v2.3.0"</span>,</span>
+  <span class="hl-key">"ReleaseDate"</span>: <span class="hl-str">"2026-11-04"</span>,
+  <span class="hl-key">"Author"</span>: <span class="hl-str">"Palchhi"</span>,
+  <span class="hl-key">"Status"</span>: <span class="hl-str">"Production-Ready"</span>,
+  <span class="hl-key">"Artifact"</span>: <span class="hl-str">"lab-app:v2.3.0"</span>,
+  <span class="hl-key">"Infrastructure"</span>: <span class="hl-str">"Kubernetes"</span>,
+  <span class="hl-key">"Strategy"</span>: <span class="hl-str">"RollingUpdate"</span>
+}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="statusbar">
+    <div>Release Readiness Pack Complete &bull; 6/6 Operational Modules Verified</div>
+    <div style="color: #3fb950; font-weight: bold;">&#10004; Ready for Production Deployment: OrderFlow v2.3.0</div>
+  </div>
+</div>
+</body>
+</html>

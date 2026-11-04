@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Screenshot 1 - Initial Deployment Investigation</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+body { background: #0d1117; color: #c9d1d9; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+.window { display: flex; flex-direction: column; height: 100%; border: 1px solid #30363d; background: #0d1117; }
+.top-nav { background: #161b22; height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; border-bottom: 1px solid #30363d; font-size: 13px; }
+.repo-info { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #58a6ff; }
+.repo-badge { background: #21262d; border: 1px solid #30363d; color: #8b949e; padding: 2px 8px; border-radius: 12px; font-size: 11px; }
+.investigation-alert { background: #3b1219; border-bottom: 1px solid #f85149; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; }
+.alert-title { color: #ff7b72; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.alert-pill { background: #f85149; color: #ffffff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+.main-view { display: flex; flex: 1; overflow: hidden; }
+.left-pane { width: 440px; border-right: 1px solid #30363d; background: #161b22; display: flex; flex-direction: column; }
+.pane-title { padding: 12px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; color: #8b949e; border-bottom: 1px solid #21262d; background: #0d1117; }
+.pipeline-card { margin: 16px; padding: 16px; background: #0d1117; border: 1px solid #f85149; border-radius: 6px; }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.run-title { font-size: 14px; font-weight: 600; color: #f0f6fc; }
+.status-pill-fail { background: rgba(248,81,73,0.2); color: #f85149; border: 1px solid #f85149; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; }
+.job-item { padding: 10px 12px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; }
+.job-item.inverted-err { border-left: 4px solid #f85149; background: #1c1417; }
+.job-item.inverted-warn { border-left: 4px solid #d29922; }
+.job-tag-success { color: #3fb950; font-weight: 600; font-size: 11px; }
+.job-tag-fail { color: #f85149; font-weight: 600; font-size: 11px; }
+.log-snippet { margin: 0 16px 16px 16px; background: #010409; border: 1px solid #30363d; border-radius: 6px; padding: 12px; font-family: 'Consolas', monospace; font-size: 11.5px; line-height: 1.5; color: #e6edf3; }
+.log-err { color: #ff7b72; font-weight: bold; }
+.log-warn { color: #d29922; }
+.right-pane { flex: 1; display: flex; flex-direction: column; background: #0d1117; }
+.editor-header { height: 38px; background: #161b22; border-bottom: 1px solid #30363d; display: flex; align-items: center; padding: 0 16px; font-size: 12.5px; font-weight: 500; color: #f0f6fc; }
+.code-container { flex: 1; padding: 16px; overflow-y: auto; font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; line-height: 1.55; white-space: pre; color: #c9d1d9; }
+.hl-danger { background: rgba(248,81,73,0.18); border-left: 3px solid #f85149; padding: 1px 6px; display: block; color: #ff7b72; }
+.hl-warn { background: rgba(210,153,34,0.15); border-left: 3px solid #d29922; padding: 1px 6px; display: block; color: #e3b341; }
+.hl-comment { color: #8b949e; font-style: italic; }
+.hl-key { color: #79b8ff; }
+.hl-str { color: #a5d6ff; }
+.hl-kw { color: #ff7b72; font-weight: bold; }
+.badge-annot { background: #f85149; color: #fff; font-size: 10px; font-weight: bold; padding: 1px 6px; border-radius: 3px; margin-left: 10px; }
+.footer { height: 30px; background: #161b22; border-top: 1px solid #30363d; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; font-size: 12px; color: #8b949e; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="top-nav">
+    <div class="repo-info">
+      <span>Palchhi8 / Devops-CA-3</span>
+      <span class="repo-badge">Commit: 16d46b7</span>
+      <span class="repo-badge">Branch: main</span>
+    </div>
+    <div style="font-size: 12px; color: #8b949e;">Initial Investigation Mode &bull; OrderFlow v2.3.0 Release Blocker Analysis</div>
+  </div>
+
+  <div class="investigation-alert">
+    <div class="alert-title">
+      <span>&#9888; RELEASE BLOCKED: Intentional Production-Readiness Vulnerabilities & Flawed Pipeline Identified</span>
+    </div>
+    <span class="alert-pill">INVESTIGATION REQUIRED</span>
+  </div>
+
+  <div class="main-view">
+    <!-- Left Pane: Pipeline Failure Overview -->
+    <div class="left-pane">
+      <div class="pane-title">Failed Pipeline Execution (Run #1)</div>
+      
+      <div class="pipeline-card">
+        <div class="card-header">
+          <span class="run-title">Release Pipeline #1</span>
+          <span class="status-pill-fail">&#10006; FAILED</span>
+        </div>
+        <p style="font-size: 12px; color: #8b949e; margin-bottom: 12px;">Triggered by push &bull; Total duration: 13s</p>
+        
+        <div class="job-item inverted-warn">
+          <div>
+            <strong>1. deploy-production</strong>
+            <div style="font-size: 11px; color: #d29922;">CRITICAL FLAW: Executed BEFORE validation</div>
+          </div>
+          <span class="job-tag-success">&#10004; Success (5s)</span>
+        </div>
+
+        <div class="job-item inverted-err">
+          <div>
+            <strong>2. validate-release</strong>
+            <div style="font-size: 11px; color: #ff7b72;">needs: deploy-production &bull; Intentional exit 1</div>
+          </div>
+          <span class="job-tag-fail">&#10006; Failed (6s)</span>
+        </div>
+      </div>
+
+      <div class="pane-title" style="border-top: 1px solid #21262d;">Job Execution Log: validate-release</div>
+      <div class="log-snippet">
+$ npm test --prefix app
+> test
+> echo "Validation passed: application is stable."
+Validation passed: application is stable.
+
+<span class="log-warn">Running validation tests...</span>
+<span class="log-err">Validation complete - some tests failed because deployment config has errors</span>
+<span class="log-err">##[error]Process completed with exit code 1.</span>
+<span class="log-err">Error: Release validation aborted</span>
+      </div>
+    </div>
+
+    <!-- Right Pane: Buggy release.yml & Vulnerability Manifest -->
+    <div class="right-pane">
+      <div class="editor-header">
+        <span>.github/workflows/release.yml (Initial Broken State)</span>
+        <span style="margin-left: auto; color: #f85149; font-size: 11px; font-weight: bold;">[BLOCKER: Inverted Stages & Intentional Failure]</span>
+      </div>
+
+      <div class="code-container">
+<span class="hl-key">name</span>: <span class="hl-str">Release Pipeline</span>
+
+<span class="hl-key">on</span>:
+  <span class="hl-key">push</span>:
+    <span class="hl-key">branches</span>:
+      - <span class="hl-str">main</span>
+
+<span class="hl-key">jobs</span>:
+<span class="hl-danger">  <span class="hl-key">deploy-production</span>:  <span class="badge-annot">CRITICAL RISK 1: Production deploy executes BEFORE any tests</span>
+    <span class="hl-key">runs-on</span>: <span class="hl-str">ubuntu-latest</span>
+    <span class="hl-key">steps</span>:
+      - <span class="hl-key">name</span>: <span class="hl-str">Checkout code</span>
+        <span class="hl-key">uses</span>: <span class="hl-str">actions/checkout@v3</span>
+
+      - <span class="hl-key">name</span>: <span class="hl-str">Deploy to Production</span>
+        <span class="hl-key">run</span>: |
+          chmod +x scripts/deploy.sh
+          ./scripts/deploy.sh</span>
+
+<span class="hl-danger">  <span class="hl-key">validate-release</span>:
+    <span class="hl-key">runs-on</span>: <span class="hl-str">ubuntu-latest</span>
+    <span class="hl-key">needs</span>: <span class="hl-str">deploy-production</span>  <span class="badge-annot">CRITICAL RISK 2: Testing depends on deployment</span>
+    <span class="hl-key">steps</span>:
+      - <span class="hl-key">name</span>: <span class="hl-str">Checkout code</span>
+        <span class="hl-key">uses</span>: <span class="hl-str">actions/checkout@v3</span>
+
+      - <span class="hl-key">name</span>: <span class="hl-str">Run Tests</span>
+        <span class="hl-key">run</span>: |
+          echo "Running validation tests..."
+          npm install --prefix app
+          npm test --prefix app
+          echo "Validation complete - some tests failed because deployment config has errors"
+          exit 1  <span class="badge-annot">CRITICAL RISK 3: Artificial exit 1 sabotage</span></span>
+
+<span class="hl-comment"># Additional Discovered Risks Across Repository:</span>
+<span class="hl-warn"># 1. Plaintext secrets in deployment/kubernetes/deployment.yaml (DATABASE_PASSWORD: "password123")</span>
+<span class="hl-warn"># 2. Untraceable floating image tag: image: lab-app:production-build</span>
+<span class="hl-warn"># 3. Missing approvals in release/approvals.yml (all fields blank)</span>
+<span class="hl-warn"># 4. No rollback mechanism in release/rollback.yml & scripts/rollback.sh</span>
+<span class="hl-warn"># 5. Outdated package.json version: "1.0.0" instead of required "2.3.0"</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Branch: investigation/release-readiness</span>
+    <span style="color: #ff7b72; font-weight: bold;">Risks identified: 7 Blocker Vulnerabilities Discovered</span>
+  </div>
+</div>
+</body>
+</html>

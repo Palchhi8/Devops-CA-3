@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Screenshot 2 - Deployment Pipeline Repairs</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+body { background: #0d1117; color: #c9d1d9; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+.window { display: flex; flex-direction: column; height: 100%; border: 1px solid #30363d; background: #0d1117; }
+.titlebar { background: #161b22; height: 38px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid #30363d; font-size: 13px; color: #8b949e; }
+.window-dots { display: flex; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
+.title-text { font-weight: 600; color: #f0f6fc; display: flex; align-items: center; gap: 8px; }
+.main-layout { display: flex; flex: 1; overflow: hidden; }
+.sidebar { width: 260px; background: #0d1117; border-right: 1px solid #30363d; display: flex; flex-direction: column; font-size: 13px; }
+.sidebar-header { padding: 12px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #8b949e; border-bottom: 1px solid #21262d; }
+.tree { padding: 8px 0; overflow-y: auto; flex: 1; }
+.tree-item { padding: 5px 16px; display: flex; align-items: center; gap: 8px; color: #8b949e; }
+.tree-item.active { background: #1f242c; color: #f0f6fc; font-weight: 600; border-left: 2px solid #58a6ff; }
+.tree-item.folder { font-weight: 600; color: #c9d1d9; }
+.indent { padding-left: 28px; }
+.indent-2 { padding-left: 44px; }
+.badge-mod { margin-left: auto; font-size: 10px; font-weight: bold; padding: 1px 6px; border-radius: 4px; background: rgba(210,153,34,0.2); color: #d29922; border: 1px solid rgba(210,153,34,0.4); }
+.badge-ok { margin-left: auto; font-size: 10px; font-weight: bold; padding: 1px 6px; border-radius: 4px; background: rgba(46,160,67,0.2); color: #3fb950; border: 1px solid rgba(46,160,67,0.4); }
+.editor-container { flex: 1; display: flex; flex-direction: column; background: #0d1117; overflow: hidden; }
+.tab-bar { display: flex; background: #161b22; border-bottom: 1px solid #30363d; }
+.tab { padding: 9px 18px; font-size: 12.5px; color: #8b949e; display: flex; align-items: center; gap: 8px; border-right: 1px solid #21262d; border-top: 2px solid transparent; background: #161b22; }
+.tab.active { background: #0d1117; color: #f0f6fc; border-top: 2px solid #58a6ff; font-weight: 500; }
+.editor-body { flex: 1; display: flex; overflow: hidden; background: #0d1117; }
+.lines { padding: 14px 10px; color: #484f58; text-align: right; user-select: none; border-right: 1px solid #21262d; font-family: 'Consolas', monospace; font-size: 13px; line-height: 1.55; }
+.code-area { flex: 1; padding: 14px 18px; overflow-y: auto; font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; line-height: 1.55; white-space: pre; color: #e6edf3; }
+.hl-key { color: #79b8ff; }
+.hl-str { color: #a5d6ff; }
+.hl-kw { color: #ff7b72; font-weight: bold; }
+.hl-comment { color: #8b949e; font-style: italic; }
+.highlight-fix { background: rgba(46,160,67,0.18); border-left: 3px solid #3fb950; padding: 1px 6px; display: block; color: #7ee787; }
+.highlight-guard { background: rgba(56,139,253,0.18); border-left: 3px solid #388bfd; padding: 1px 6px; display: block; color: #79c0ff; }
+.pill-fix { background: #238636; color: #fff; font-size: 10px; font-weight: bold; padding: 1px 6px; border-radius: 3px; margin-left: 8px; }
+.statusbar { height: 26px; background: #161b22; border-top: 1px solid #30363d; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-size: 11.5px; color: #8b949e; }
+.status-item { display: flex; align-items: center; gap: 6px; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="titlebar">
+    <div class="window-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+    <div class="title-text"><span>OrderFlow IDE</span> &bull; <span>.github/workflows/release.yml</span> &bull; <span>investigation/release-readiness</span></div>
+    <div style="font-size: 12px; color: #3fb950; font-weight: bold;">&#10004; Pipeline Stages Repaired & Production-Safe</div>
+  </div>
+
+  <div class="main-layout">
+    <div class="sidebar">
+      <div class="sidebar-header">Workspace: Devops-CA-3</div>
+      <div class="tree">
+        <div class="tree-item folder">&#128193; .github</div>
+        <div class="tree-item folder indent">&#128193; workflows</div>
+        <div class="tree-item indent-2 active">&#128196; release.yml <span class="badge-ok">REPAIRED</span></div>
+        <div class="tree-item folder">&#128193; app</div>
+        <div class="tree-item indent">&#128196; package.json <span class="badge-ok">v2.3.0</span></div>
+        <div class="tree-item indent">&#128196; server.js</div>
+        <div class="tree-item folder">&#128193; deployment</div>
+        <div class="tree-item indent">&#128193; kubernetes</div>
+        <div class="tree-item indent">&#128193; terraform</div>
+        <div class="tree-item folder">&#128193; release</div>
+        <div class="tree-item indent">&#128196; approvals.yml</div>
+        <div class="tree-item indent">&#128196; deployment-config.yml</div>
+        <div class="tree-item indent">&#128196; rollback.yml</div>
+        <div class="tree-item folder">&#128193; scripts</div>
+        <div class="tree-item indent">&#128196; deploy.sh</div>
+        <div class="tree-item indent">&#128196; rollback.sh</div>
+      </div>
+    </div>
+
+    <div class="editor-container">
+      <div class="tab-bar">
+        <div class="tab active">&#128196; release.yml &times;</div>
+        <div class="tab">&#128196; deploy.sh</div>
+        <div class="tab">&#128196; package.json</div>
+      </div>
+
+      <div class="editor-body">
+        <div class="code-area">
+<span class="hl-key">name</span>: <span class="hl-str">Release Pipeline</span>
+
+<span class="hl-key">on</span>:
+  <span class="hl-key">push</span>:
+    <span class="hl-key">branches</span>:
+      - <span class="hl-str">main</span>
+      - <span class="hl-str">'investigation/**'</span>
+      - <span class="hl-str">'release/**'</span>
+  <span class="hl-key">workflow_dispatch</span>:
+
+<span class="hl-key">jobs</span>:
+<span class="highlight-fix">  <span class="hl-key">validate-release</span>:  <span class="pill-fix">REPAIR 1: Validation runs FIRST</span>
+    <span class="hl-key">name</span>: <span class="hl-str">Validate Release Candidate</span>
+    <span class="hl-key">runs-on</span>: <span class="hl-str">ubuntu-latest</span>
+    <span class="hl-key">steps</span>:
+      - <span class="hl-key">name</span>: <span class="hl-str">Checkout code</span>
+        <span class="hl-key">uses</span>: <span class="hl-str">actions/checkout@v4</span>
+
+      - <span class="hl-key">name</span>: <span class="hl-str">Setup Node.js</span>
+        <span class="hl-key">uses</span>: <span class="hl-str">actions/setup-node@v4</span>
+        <span class="hl-key">with</span>:
+          <span class="hl-key">node-version</span>: <span class="hl-str">18</span>
+
+      - <span class="hl-key">name</span>: <span class="hl-str">Install Dependencies</span>
+        <span class="hl-key">run</span>: |
+          npm install --prefix app
+
+      - <span class="hl-key">name</span>: <span class="hl-str">Run Validation Tests</span>
+        <span class="hl-key">run</span>: |
+          echo "Running pre-deployment validation tests..."
+          npm test --prefix app
+
+      - <span class="hl-key">name</span>: <span class="hl-str">Validate Release Artifacts & Secret Hygiene</span>
+        <span class="hl-key">run</span>: |
+          echo "Verifying release versioning and configuration integrity..."
+          if grep -rn "password123" deployment/ release/ 2>/dev/null; then
+            echo "Security Error: Hardcoded passwords detected!"
+            exit 1
+          fi
+          echo "Validation complete: application is stable and release configuration is verified."</span>
+
+<span class="highlight-guard">  <span class="hl-key">deploy-production</span>:  <span class="pill-fix">REPAIR 2: Gated by successful validation</span>
+    <span class="hl-key">name</span>: <span class="hl-str">Deploy to Production</span>
+    <span class="hl-key">runs-on</span>: <span class="hl-str">ubuntu-latest</span>
+    <span class="hl-key">needs</span>: <span class="hl-str">validate-release</span>  <span class="pill-fix">REPAIR 3: Strict dependency guard</span>
+    <span class="hl-key">environment</span>: <span class="hl-str">production</span>  <span class="pill-fix">REPAIR 4: Production environment protection</span>
+    <span class="hl-key">env</span>:
+      <span class="hl-key">RELEASE_VERSION</span>: <span class="hl-str">"v2.3.0"</span>  <span class="pill-fix">REPAIR 5: Traceable version injection</span>
+    <span class="hl-key">steps</span>:
+      - <span class="hl-key">name</span>: <span class="hl-str">Checkout code</span>
+        <span class="hl-key">uses</span>: <span class="hl-str">actions/checkout@v4</span>
+
+      - <span class="hl-key">name</span>: <span class="hl-str">Deploy to Production</span>
+        <span class="hl-key">run</span>: |
+          chmod +x scripts/deploy.sh
+          ./scripts/deploy.sh</span>
+        </div>
+      </div>
+
+      <div class="statusbar">
+        <div class="status-item"><span style="color: #58a6ff;">&#9280; investigation/release-readiness</span> &bull; <span>YAML</span> &bull; <span>UTF-8</span></div>
+        <div class="status-item"><span style="color: #3fb950;">&#10004; Validation Guard Enforced</span> &bull; <span>Release Target: v2.3.0</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
