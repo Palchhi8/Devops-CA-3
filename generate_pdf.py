@@ -39,14 +39,14 @@ class NumberedCanvas(canvas.Canvas):
         self.line(36, PAGE_HEIGHT - 38, PAGE_WIDTH - 36, PAGE_HEIGHT - 38)
         
         # Header text
-        self.drawString(36, PAGE_HEIGHT - 32, "OrderFlow v2.3.0 — Production Release Readiness & Pipeline Verification")
+        self.drawString(36, PAGE_HEIGHT - 32, "OrderFlow v2.3.0 - Production Release Readiness & Pipeline Verification")
         self.drawRightString(PAGE_WIDTH - 36, PAGE_HEIGHT - 32, "DevOps CA-3 | Palchhi8 / Devops-CA-3")
         
         # Footer banner line
         self.line(36, 36, PAGE_WIDTH - 36, 36)
         
         # Footer text
-        self.drawString(36, 24, "Branch: investigation/release-readiness  •  Release Candidate: v2.3.0  •  Author: Palchhi")
+        self.drawString(36, 24, "Branch: investigation/release-readiness  |  Release Candidate: v2.3.0  |  Author: Palchhi")
         self.drawRightString(PAGE_WIDTH - 36, 24, f"Page {self._pageNumber} of {total_pages}")
         
         self.restoreState()
@@ -96,36 +96,36 @@ def build_pdf():
     items = [
         {
             "num": 1,
-            "label": "Screenshot 1 – Initial Deployment Investigation",
-            "meta": "Target: Repository and Pipeline before fixes  •  Artifact: Initial broken state with inverted deployment execution",
+            "label": "Screenshot 1 - Initial Deployment Investigation",
+            "meta": "Target: Repository and Pipeline before fixes  |  Artifact: Initial broken state with inverted deployment execution",
             "file": "Screenshot_1_Initial_Deployment_Investigation.png",
             "caption": "Caption: Investigation identified critical production risks: deployment executed prior to validation, artificial test failure, unversioned tags, missing approvals, and exposed plaintext credentials."
         },
         {
             "num": 2,
-            "label": "Screenshot 2 – Deployment Pipeline Repairs",
-            "meta": "Target: Updated deployment workflow (.github/workflows/release.yml)  •  Artifact: Corrected pipeline configuration in editor",
+            "label": "Screenshot 2 - Deployment Pipeline Repairs",
+            "meta": "Target: Updated deployment workflow (.github/workflows/release.yml)  |  Artifact: Corrected pipeline configuration in editor",
             "file": "Screenshot_2_Deployment_Pipeline_Repairs.png",
             "caption": "Caption: The updated deployment pipeline enforces strict pre-deployment validation, removes artificial failures, injects release version v2.3.0, and establishes production environment gates."
         },
         {
             "num": 3,
-            "label": "Screenshot 3 – Secure Release Configuration",
-            "meta": "Target: Hardened deployment configurations  •  Artifact: Kubernetes secretKeyRefs, approval sign-offs, and versioned manifests",
+            "label": "Screenshot 3 - Secure Release Configuration",
+            "meta": "Target: Hardened deployment configurations  |  Artifact: Kubernetes secretKeyRefs, approval sign-offs, and versioned manifests",
             "file": "Screenshot_3_Secure_Release_Configuration.png",
             "caption": "Caption: Secured release configuration eradicates hardcoded secrets via Kubernetes SecretKeyRefs, formalizes multi-stakeholder sign-offs, and enforces v2.3.0 artifact traceability."
         },
         {
             "num": 4,
-            "label": "Screenshot 4 – Successful Validation",
-            "meta": "Target: GitHub Actions Pipeline Execution (Run #2)  •  Artifact: Green validation and automated production deployment",
+            "label": "Screenshot 4 - Successful Validation",
+            "meta": "Target: GitHub Actions Pipeline Execution (Run #2)  |  Artifact: Green validation and automated production deployment",
             "file": "Screenshot_4_Successful_Validation.png",
             "caption": "Caption: Automated validation passed with 100% test success, verified secret hygiene, and executed production deployment with immutable release tag v2.3.0."
         },
         {
             "num": 5,
-            "label": "Screenshot 5 – Final Release Readiness Pack",
-            "meta": "Target: Release documentation & final repository state  •  Artifact: Operational documentation, rollback plan, and approval matrix",
+            "label": "Screenshot 5 - Final Release Readiness Pack",
+            "meta": "Target: Release documentation & final repository state  |  Artifact: Operational documentation, rollback plan, and approval matrix",
             "file": "Screenshot_5_Final_Release_Readiness_Pack.png",
             "caption": "Caption: Comprehensive Release Readiness Pack establishes verifiable audit trails, zero-downtime rollback protocols, and verified operational procedures for OrderFlow v2.3.0."
         }
