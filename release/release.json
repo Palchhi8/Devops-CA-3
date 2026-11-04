@@ -1,5 +1,12 @@
 {
-  "Version": "1.0",
-  "ReleaseDate": "2024-01-01",
-  "Author": "DevOps Team"
+  "Application": "OrderFlow",
+  "Version": "v2.3.0",
+  "ReleaseDate": "2026-11-04",
+  "Author": "Palchhi (Release Engineering Lead)",
+  "Environment": "production",
+  "Status": "Production-Ready",
+  "Artifact": "lab-app:v2.3.0",
+  "Infrastructure": "Kubernetes",
+  "Strategy": "RollingUpdate",
+  "RollbackTarget": "v2.2.0"
 }

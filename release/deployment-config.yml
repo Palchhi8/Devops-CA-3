@@ -1,7 +1,20 @@
 environment: production
-image_tag: production-build
+app_name: OrderFlow
+version: v2.3.0
+image_tag: lab-app:v2.3.0
+infrastructure: kubernetes
+deployment_strategy: RollingUpdate
+replicas: 3
+health_check_endpoint: /health
+
 secrets:
   API_KEY: ${API_KEY}
-  DATABASE_PASSWORD: password123
-  TOKEN: abcd1234
-  AWS_SECRET: test-secret
+  DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+  TOKEN: ${TOKEN}
+  AWS_SECRET: ${AWS_SECRET}
+
+security_policy:
+  secret_management: "Environment-injected variables and Kubernetes Secret resources"
+  hardcoded_credentials: false
+  environment_protection_rules_enabled: true
+  required_approvals: 2
