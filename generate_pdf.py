@@ -118,9 +118,9 @@ def build_pdf():
         {
             "num": 4,
             "label": "Screenshot 4 - Successful Validation",
-            "meta": "Target: GitHub Actions Pipeline Execution (Run #2)  |  Artifact: Green validation and automated production deployment",
+            "meta": "Target: GitHub Actions Pipeline Execution  |  Artifact: Successful pre-deployment validation (investigation/release-readiness)",
             "file": "Screenshot_4_Successful_Validation.png",
-            "caption": "Caption: Automated validation passed with 100% test success, verified secret hygiene, and executed production deployment with immutable release tag v2.3.0."
+            "caption": "Caption: All automated validation, security and deployment-readiness checks passed, confirming that OrderFlow v2.3.0 is production-ready while actual production deployment remains intentionally unexecuted."
         },
         {
             "num": 5,
